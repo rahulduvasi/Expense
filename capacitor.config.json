@@ -1,5 +1,5 @@
 {
-  "appId": "com.mycompany.myapp",
-  "appName": "My React App",
+  "appId": "com.rahulduvasi.expense",
+  "appName": "Expense",
   "webDir": "dist"
 }
