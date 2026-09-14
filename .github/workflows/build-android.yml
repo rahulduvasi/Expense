@@ -1,0 +1,73 @@
+name: Build RupeeWise Android App
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Install Capacitor Tools
+        run: |
+          npm install --no-save \
+            @capacitor/core@8.5.2 \
+            @capacitor/cli@8.5.2 \
+            @capacitor/android@8.5.2 \
+            @capacitor/assets@3.0.5
+
+      - name: Build React + Vite Project
+        run: npm run build
+
+      - name: Add Android Platform
+        run: npx cap add android
+
+      - name: Generate RupeeWise Android Icons
+        run: |
+          npx @capacitor/assets generate \
+            --android \
+            --assetPath assets \
+            --iconBackgroundColor '#0b0b0d' \
+            --iconBackgroundColorDark '#0b0b0d' \
+            --splashBackgroundColor '#0b0b0d' \
+            --splashBackgroundColorDark '#0b0b0d'
+
+      - name: Sync Capacitor Android Project
+        run: npx cap sync android
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '21'
+          cache: gradle
+
+      - name: Build Android APK (Debug Mode)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload Finished APK File
+        uses: actions/upload-artifact@v4
+        with:
+          name: rupeewise-android-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk

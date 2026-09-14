@@ -1,0 +1,17 @@
+{
+  "name": "RupeeWise",
+  "short_name": "RupeeWise",
+  "description": "A simple personal finance and expense tracker.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0d",
+  "theme_color": "#0b0b0d",
+  "icons": [
+    {
+      "src": "/rupeewise-icon.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
