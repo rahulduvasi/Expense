@@ -180,7 +180,8 @@
 }
 
 .forgot-password-link {
-  margin: 0;
+  align-self: flex-end;
+  margin: 7px 2px 0 0;
   padding: 0;
   border: 0;
   background: transparent;

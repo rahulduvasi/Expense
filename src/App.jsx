@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { configureNativeUi } from './lib/nativeUi'
 
 import { supabase } from './lib/supabase'
 
@@ -242,6 +243,9 @@ const App = () => {
       : 'RupeeWise'
 
     localStorage.setItem(THEME_KEY, theme)
+
+    // Keep Android system bars in sync with the selected theme.
+    configureNativeUi(theme)
   }, [theme, isLoggedIn])
 
   /*
