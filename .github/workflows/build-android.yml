@@ -26,14 +26,14 @@ jobs:
       - name: Install Project Dependencies
         run: npm ci
 
-      - - name: Install Capacitor Tools
-  run: |
-    npm install --no-save \
-      @capacitor/core@8.5.2 \
-      @capacitor/cli@8.5.2 \
-      @capacitor/android@8.5.2 \
-      @capacitor/status-bar@8.0.3 \
-      @capacitor/assets@3.0.5
+      - name: Install Capacitor Tools
+        run: |
+          npm install --no-save \
+            @capacitor/core@8.5.2 \
+            @capacitor/cli@8.5.2 \
+            @capacitor/android@8.5.2 \
+            @capacitor/status-bar@8.0.3 \
+            @capacitor/assets@3.0.5
 
       - name: Build React + Vite Project
         run: npm run build
